@@ -1,2 +1,5 @@
 /node_modules
 /.idea
+/config/db.php
+.php-cs-fixer.cache
+/vendor

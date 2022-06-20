@@ -12,6 +12,15 @@
 <body>
 
 <div class="container mt-5">
+    <?php
+
+    use App\Model\Furniture;
+    use App\Persistence\MySQL;
+
+    include 'Persistence/MySQL.php';
+    include 'Model/Furniture.php';
+    $mysql = new MySQL();
+    ?>
     <div class="row row-cols-2">
         <div class="col">
             <h3>Products list</h3>
@@ -148,7 +157,7 @@
                     </div>
                     <h6 class="card-subtitle mb-2 text-muted">Acme DISC</h6>
                     <p class="card-text">1.00$</p>
-                    <p class="card-text">Size: 700mb</p>
+                    <p class="card-text">Size: 7mb</p>
                 </div>
             </div>
         </div>

@@ -11,14 +11,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-    <script src="/js/productAdding.js"></script>
+    <script type="module" src="/js/productAdding.js"></script>
 </head>
 
 <body>
 <div class="container mt-5">
     <div class="row">
         <div class="col">
-            <form class="needs-validation" id="product_form" method="post" novalidate>
+            <form id="product_form" method="post" novalidate>
                 <div class="row row-cols-2">
                     <div class="col">
                         <h3>Product adding</h3>
@@ -34,14 +34,23 @@
                 <div class="mb-3">
                     <label for="sku" class="form-label">SKU</label>
                     <input type="text" class="form-control" id="sku" required>
+                    <div class="invalid-feedback">
+                        Please, provide a SKU!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" required>
+                    <div class="invalid-feedback">
+                        Please, provide a name of product!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Price ($)</label>
                     <input type="number" class="form-control" id="price" required>
+                    <div class="invalid-feedback">
+                        Please, provide a valid price in $.
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="productType" class="form-label">Type switcher</label>
@@ -52,30 +61,15 @@
                     </select>
                 </div>
                 <div id="dynamicFields">
-                    <div id="DVD" hidden>
+                    <div id="DVD">
                         <div class="mb-3">
                             <label for="size" class="form-label">Size</label>
                             <input type="number" class="form-control" id="size" aria-describedby="sizeHelp"
                                    required>
                             <div id="sizeHelp" class="form-text">Please, provide a size (in MB)!</div>
-                        </div>
-                    </div>
-                    <div id="Book">
-                        <div class="mb-3">
-                            <label for="weight" class="form-label">Weight</label>
-                            <input type="number" class="form-control" id="weight" aria-describedby="weightHelp">
-                            <div id="weightHelp" class="form-text">Please, provide a weight (in Kg)!</div>
-                        </div>
-                    </div>
-                    <div id="Furniture">
-                        <div class="mb-3">
-                            <input type="number" class="form-control" id="height">
-                        </div>
-                        <div class="mb-3">
-                            <input type="number" class="form-control" id="width">
-                        </div>
-                        <div class="mb-3">
-                            <input type="number" class="form-control">
+                            <div class="invalid-feedback">
+                                Please, provide a valid data!
+                            </div>
                         </div>
                     </div>
                 </div>
