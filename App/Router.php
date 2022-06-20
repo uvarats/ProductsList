@@ -63,7 +63,7 @@ class Router
         [$class, $method] = $action;
         if(class_exists($class)) {
             $class = $this->container->get($class);
-            var_dump($class);
+
         }
     }
 }

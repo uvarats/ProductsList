@@ -1,5 +1,5 @@
 /node_modules
 /.idea
-/config/db.php
+/config
 .php-cs-fixer.cache
 /vendor
