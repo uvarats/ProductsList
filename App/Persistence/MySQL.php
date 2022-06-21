@@ -11,7 +11,7 @@ class MySQL
     public function __construct()
     {
         /** @var DBCredentials $credentials */
-        $credentials = include 'config/db.php';
+        $credentials = include dirname(__DIR__, 2) . '/config/db.php';
         $this->connection = new mysqli(
             $credentials->getHost(),
             $credentials->getUsername(),

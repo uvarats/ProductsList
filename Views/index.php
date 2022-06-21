@@ -12,21 +12,12 @@
 <body>
 
 <div class="container mt-5">
-    <?php
-
-    use App\Model\Furniture;
-    use App\Persistence\MySQL;
-
-    include 'Persistence/MySQL.php';
-    include 'Model/Furniture.php';
-    $mysql = new MySQL();
-    ?>
     <div class="row row-cols-2">
         <div class="col">
             <h3>Products list</h3>
         </div>
         <div class="col d-flex justify-content-end">
-            <form action="add-product/">
+            <form action="/add-product">
                 <input class="btn btn-outline-success me-3" type="submit" value="Add"/>
                 <input class="btn btn-outline-danger" id="delete-product-btn" type="button" value="Mass delete"/>
             </form>

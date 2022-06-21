@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Exceptions\ContainerException;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Container implements ContainerInterface
 {
@@ -32,6 +34,12 @@ class Container implements ContainerInterface
         $this->entries[$id] = $concrete;
     }
 
+    /**
+     * @throws NotFoundExceptionInterface
+     * @throws \ReflectionException
+     * @throws ContainerExceptionInterface
+     * @throws ContainerException
+     */
     public function resolve(string $id)
     {
         $reflectionClass = new \ReflectionClass($id);
@@ -47,7 +55,7 @@ class Container implements ContainerInterface
             return new $id();
         }
         $dependencies = array_map(
-            function (\ReflectionParameter $parameter) use ($id) {
+        function (\ReflectionParameter $parameter) use ($id) {
                 $name = $parameter->getName();
                 $type = $parameter->getType();
 

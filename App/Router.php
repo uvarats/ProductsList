@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Attributes\Route;
+use App\Exceptions\RouteNotFoundException;
 use ReflectionMethod;
 
 class Router
@@ -64,6 +65,10 @@ class Router
         if(class_exists($class)) {
             $class = $this->container->get($class);
 
+            if(method_exists($class, $method)) {
+                return call_user_func_array([$class, $method], []);
+            }
         }
+        throw new RouteNotFoundException($requestPath);
     }
 }
