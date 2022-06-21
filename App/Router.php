@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\Attributes\Route;
@@ -56,7 +58,7 @@ class Router
     public function process(string $requestPath, string $requestMethod) {
         $action = $this->routes[$requestMethod][$requestPath] ?? null;
         if(!$action) {
-            throw new \Exception("Route not found.");
+            throw new RouteNotFoundException($requestPath);
         }
         if(is_callable($action)) {
             call_user_func($action);

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+declare(strict_types=1);
 
-include 'Product.php';
+namespace App\Model;
 
 class DVD extends Product
 {
