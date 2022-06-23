@@ -7,6 +7,8 @@ use Dotenv\Dotenv;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+var_dump($_ENV);
+
 $file = dirname(__DIR__) . '/.env';
 if(file_exists($file)) {
     $dotenv = Dotenv::createImmutable(dirname(__DIR__));
