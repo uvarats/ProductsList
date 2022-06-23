@@ -6,6 +6,8 @@ namespace App;
 
 use App\Attributes\Route;
 use App\Exceptions\RouteNotFoundException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use ReflectionMethod;
 
 class Router
@@ -22,7 +24,7 @@ class Router
     }
 
 
-    public function parseRoutes(array $controllers)
+    public function parseRoutes(array $controllers): void
     {
         foreach($controllers as $controller) {
             $reflection = new \ReflectionClass($controller);
@@ -53,7 +55,12 @@ class Router
     }
 
     /**
-     * @throws \Exception
+     * @param string $requestPath
+     * @param string $requestMethod
+     * @return mixed
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws RouteNotFoundException
      */
     public function process(string $requestPath, string $requestMethod) {
         $action = $this->routes[$requestMethod][$requestPath] ?? null;
