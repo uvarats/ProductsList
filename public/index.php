@@ -12,8 +12,9 @@ var_dump($_ENV);
 $file = dirname(__DIR__) . '/.env';
 if(file_exists($file)) {
     $dotenv = Dotenv::createImmutable(dirname(__DIR__));
-    define("env", $dotenv->load());
 }
+$env = isset($dotenv) ? $dotenv->load() : $_ENV;
+define("env", $env);
 
 const VIEWS_PATH = __DIR__ . '/../Views';
 
