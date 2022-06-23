@@ -13,10 +13,10 @@ class MySQL
     public function __construct()
     {
         $this->connection = new mysqli(
-            env['DB_HOST'],
-            env['DB_USER'],
-            env['DB_PASSWORD'],
-            env['DB_DATABASE']
+            $_ENV('DB_HOST'),
+            $_ENV['DB_USER'],
+            $_ENV['DB_PASSWORD'],
+            $_ENV['DB_DATABASE']
         );
     }
 
