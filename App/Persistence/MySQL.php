@@ -12,13 +12,11 @@ class MySQL
 
     public function __construct()
     {
-        /** @var DBCredentials $credentials */
-        $credentials = include dirname(__DIR__, 2) . '/config/db.php';
         $this->connection = new mysqli(
-            $credentials->getHost(),
-            $credentials->getUsername(),
-            $credentials->getPassword(),
-            $credentials->getDbname()
+            env['DB_HOST'],
+            env['DB_USER'],
+            env['DB_PASSWORD'],
+            env['DB_DATABASE']
         );
     }
 

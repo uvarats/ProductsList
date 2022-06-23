@@ -3,8 +3,13 @@
 use App\Container;
 use App\Controllers\ProductController;
 use App\Router;
+use Dotenv\Dotenv;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+define("env", $dotenv->load());
+
 
 const VIEWS_PATH = __DIR__ . '/../Views';
 
