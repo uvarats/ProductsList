@@ -33,21 +33,21 @@
                 </div>
                 <div class="mb-3">
                     <label for="sku" class="form-label">SKU</label>
-                    <input type="text" class="form-control" id="sku" name="sku" required>
+                    <input type="text" class="form-control" id="sku" name="sku" maxlength="30" required>
                     <div class="invalid-feedback">
                         Please, provide a SKU!
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control" id="name" name="name" maxlength="45" required>
                     <div class="invalid-feedback">
                         Please, provide a name of product!
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Price ($)</label>
-                    <input type="number" class="form-control" id="price" name="price" required>
+                    <input type="number" step=".01" max="3e38" class="form-control" id="price" name="price" required>
                     <div class="invalid-feedback">
                         Please, provide a valid price in $.
                     </div>
@@ -64,7 +64,7 @@
                     <div id="DVD">
                         <div class="mb-3">
                             <label for="size" class="form-label">Size</label>
-                            <input type="number" class="form-control" id="size" name="size" aria-describedby="sizeHelp"
+                            <input type="number" step=".01" max="3e38" class="form-control" id="size" name="size" aria-describedby="sizeHelp"
                                    required>
                             <div id="sizeHelp" class="form-text">Please, provide a size (in MB)!</div>
                             <div class="invalid-feedback">
