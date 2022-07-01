@@ -44,6 +44,7 @@ class FurnitureRepository extends ProductRepository implements ProductAddInterfa
                     $product->getLength()
                 ]);
             } catch (\mysqli_sql_exception $e) {
+                error_log($e->getMessage(), 0);
                 return [
                     'errorCode' => $e->getCode(),
                 ];

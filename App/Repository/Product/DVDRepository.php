@@ -28,6 +28,7 @@ class DVDRepository extends ProductRepository implements ProductAddInterface
                     $product->getSize()
                 ]);
             } catch (\mysqli_sql_exception $e) {
+                error_log($e->getMessage(), 0);
                 return [
                     'errorCode' => $e->getCode(),
                 ];

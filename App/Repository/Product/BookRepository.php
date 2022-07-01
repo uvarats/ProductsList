@@ -29,6 +29,7 @@ class BookRepository extends ProductRepository implements ProductAddInterface
                     $product->getWeight(),
                 ]);
             } catch (\mysqli_sql_exception $e) {
+                error_log($e->getMessage(), 0);
                 return [
                     'errorCode' => $e->getCode(),
                 ];
