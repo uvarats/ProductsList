@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Attributes\Route;
-use App\Exceptions\RouteNotFoundException;
+use App\Attribute\Route;
+use App\Exception\RouteNotFoundException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use ReflectionMethod;
@@ -73,7 +73,6 @@ class Router
         [$class, $method] = $action;
         if(class_exists($class)) {
             $class = $this->container->get($class);
-
             if(method_exists($class, $method)) {
                 return call_user_func_array([$class, $method], []);
             }

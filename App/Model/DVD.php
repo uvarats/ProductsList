@@ -8,6 +8,14 @@ class DVD extends Product
 {
     private int $size;
 
+    public function __construct(array $params = null)
+    {
+        if($params) {
+            parent::__construct($params);
+            $this->size = $params['Size'] ?? 0.0;
+        }
+    }
+
     /**
      * @param int $size
      * @return DVD
@@ -25,4 +33,10 @@ class DVD extends Product
     {
         return $this->size;
     }
+
+    public function __toString(): string
+    {
+        return "Size: {$this->getSize()}";
+    }
+
 }

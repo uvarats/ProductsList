@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Exceptions\ContainerException;
+use App\Exception\ContainerException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -12,6 +12,19 @@ use Psr\Container\NotFoundExceptionInterface;
 class Container implements ContainerInterface
 {
     private array $entries = [];
+    private static ?Container $_instance = null;
+
+    private function __construct()
+    {
+    }
+
+    public static function getInstance(): self
+    {
+        if(is_null(self::$_instance)) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
 
     public function get(string $id)
     {
@@ -82,5 +95,8 @@ class Container implements ContainerInterface
             $params
         );
         return $reflectionClass->newInstanceArgs($dependencies);
+    }
+    protected function __clone() {
+
     }
 }

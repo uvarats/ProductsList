@@ -11,6 +11,16 @@ abstract class Product
     private string $name;
     private float $price;
 
+    public function __construct(array $params = null)
+    {
+        if($params) {
+            $this->id = $params['Id'];
+            $this->SKU = $params['SKU'] ?? "Undefined";
+            $this->name =  $params['Name'] ?? 'Undefined';
+            $this->price = $params['Price'] ?? 0.0;
+        }
+    }
+
     /**
      * @param int|null $id
      * @return Product

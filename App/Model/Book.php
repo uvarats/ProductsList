@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-include 'Product.php';
-
 class Book extends Product
 {
     private float $weight;
+
+    public function __construct(array $params = null)
+    {
+        if($params) {
+            parent::__construct($params);
+            $this->weight = $params['Weight'] ?? 0.0;
+        }
+    }
 
     /**
      * @param float $weight
@@ -27,4 +33,11 @@ class Book extends Product
     {
         return $this->weight;
     }
+
+    public function __toString(): string
+    {
+        return "Weight: {$this->getWeight()}kg";
+    }
+
+
 }

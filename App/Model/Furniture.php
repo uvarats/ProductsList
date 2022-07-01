@@ -10,6 +10,16 @@ class Furniture extends Product
     private float $width;
     private float $length;
 
+    public function __construct(array $params = null)
+    {
+        if($params) {
+            parent::__construct($params);
+            $this->height = $params['Height'] ?? 0.0;
+            $this->width = $params['Width'] ?? 0.0;
+            $this->length = $params['Length'] ?? 0.0;
+        }
+    }
+
     /**
      * @param float $height
      * @return Furniture
@@ -65,6 +75,12 @@ class Furniture extends Product
     }
     public function getDimensions(): string
     {
-        return "{$this->height}x{$this->width}x{$this->length}";
+        return "Dimensions: {$this->height}x{$this->width}x{$this->length}";
     }
+
+    public function __toString(): string
+    {
+        return $this->getDimensions();
+    }
+
 }

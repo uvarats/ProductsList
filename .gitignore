@@ -5,3 +5,4 @@
 /vendor
 /tools
 .env
+Views/cache
