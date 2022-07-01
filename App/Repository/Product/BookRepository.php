@@ -21,7 +21,7 @@ class BookRepository extends ProductRepository implements ProductAddInterface
     public function add(Product $product): null|array
     {
         if($product instanceof Book) {
-            $bookQuery = 'INSERT INTO Book (ProductId, Weight) VALUES (?, ?);';
+            $bookQuery = 'INSERT INTO book (ProductId, Weight) VALUES (?, ?);';
             try {
                 parent::addProduct($product);
                 $this->mySQL->preparedQuery($bookQuery, [

@@ -34,7 +34,7 @@ class FurnitureRepository extends ProductRepository implements ProductAddInterfa
     public function add(Product $product): null|array
     {
         if($product instanceof Furniture) {
-            $furnitureQuery = 'INSERT INTO Furniture (ProductId, Height, Width, Length) VALUES (?, ?, ?, ?)';
+            $furnitureQuery = 'INSERT INTO furniture (ProductId, Height, Width, Length) VALUES (?, ?, ?, ?)';
             try {
                 parent::addProduct($product);
                 $this->mySQL->preparedQuery($furnitureQuery, [

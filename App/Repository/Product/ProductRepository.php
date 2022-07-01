@@ -24,13 +24,13 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function get(int $id): ?Product
     {
-        $query = 'SELECT * FROM Products p WHERE p.Id = ?';
+        $query = 'SELECT * FROM products p WHERE p.Id = ?';
         $result = $this->mySQL->preparedQuery($query, [$id]);
         $result = $result->fetch_assoc();
         if($result) {
             $type = $result['ProductType'];
             $typeName = $this->productUtil->getTypeName($type);
-            $query = 'SELECT * FROM ' . $typeName . ' t WHERE t.ProductId = ?';
+            $query = 'SELECT * FROM ' . strtolower($typeName) . ' t WHERE t.ProductId = ?';
             $queryResult = $this->mySQL->preparedQuery($query, [$id]);
             $result = array_merge(
                 $result,
@@ -43,11 +43,11 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function remove(int|array $id): void
     {
-        $query = 'DELETE FROM Products p WHERE p.Id = ?';
+        $query = 'DELETE FROM products p WHERE p.Id = ?';
         $params = [$id];
         if (is_array($id)) {
             $ids = implode("','", $id);
-            $query = "DELETE FROM Products p WHERE p.Id IN ('" . $ids. "')";
+            $query = "DELETE FROM products p WHERE p.Id IN ('" . $ids. "')";
             $params = [];
         }
         $result = $this->mySQL->preparedQuery($query, $params);
@@ -56,10 +56,10 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function all(callable $condition = null): array
     {
-        $query = 'SELECT * FROM Products 
-                LEFT OUTER JOIN Book B on Products.Id = B.ProductId 
-                LEFT OUTER JOIN DVD D on Products.Id = D.ProductId 
-                LEFT OUTER JOIN Furniture F on Products.Id = F.ProductId';
+        $query = 'SELECT * FROM products 
+                LEFT OUTER JOIN book B on Products.Id = B.ProductId 
+                LEFT OUTER JOIN dvd D on Products.Id = D.ProductId 
+                LEFT OUTER JOIN furniture F on Products.Id = F.ProductId';
         $result = $this->mySQL->query($query);
         $array = $result->fetch_all(MYSQLI_ASSOC);
         return array_map(function ($entry) {
@@ -69,7 +69,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     protected function addProduct(Product $product): void
     {
-        $baseQuery = 'INSERT INTO Products (SKU, Name, Price, ProductType) VALUES (?, ?, ?, ?)';
+        $baseQuery = 'INSERT INTO products (SKU, Name, Price, ProductType) VALUES (?, ?, ?, ?)';
         $classname = ClassUtil::getClassName($product::class);
         $this->mySQL->preparedQuery($baseQuery, [
             $product->getSKU(),
