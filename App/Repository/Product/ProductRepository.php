@@ -75,7 +75,7 @@ class ProductRepository implements ProductRepositoryInterface
             $product->getSKU(),
             $product->getName(),
             $product->getPrice(),
-            $classname
+            $this->productUtil->getTypeId($classname)
         ]);
     }
 }
