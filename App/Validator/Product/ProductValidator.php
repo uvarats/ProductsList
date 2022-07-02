@@ -15,19 +15,29 @@ class ProductValidator
             'DVD' => (fn() => new DVDValidator()),
             'Furniture' => (fn() => new FurnitureValidator())
         ];
-        return $validators[$type]();
+        if($validators[$type]) {
+            return $validators[$type]();
+        }
+        return null;
     }
     protected function validateBase(array $data): ValidationError|array
     {
-        $keys = ['sku', 'name', 'price'];
-        $values = [];
+        $keys = ['SKU', 'Name', 'Price'];
         foreach($keys as $key) {
-            if(!isset($data[$key])) {
+            $lowerKey = strtolower($key);
+            if(!isset($data[$lowerKey])) {
                 return new ValidationError('Missing "' . $key . '" value!');
             }
-            $values[$key] = $data[$key];
         }
-
-        return $values;
+        if(strlen($data['sku']) > 30) {
+            return new ValidationError("SKU should not be longer than 30 characters.");
+        }
+        if(strlen($data['name']) > 45) {
+            return new ValidationError('Name should not be longer than 45 characters.');
+        }
+        if(!is_numeric($data['price'])) {
+            return new ValidationError('Price should be a numeric.');
+        }
+        return $data;
     }
 }

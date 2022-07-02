@@ -24,7 +24,9 @@ class ValidationError
 
     public function __toString(): string
     {
-        return $this->text;
+        return json_encode([
+            'error' => $this->text,
+        ]);
     }
 
 

@@ -27,6 +27,7 @@ async function onsubmit(event) {
         });
         let responseJson = await response.json();
         console.log(responseJson);
+        let data = new FormData(event.target);
     }
     event.target.classList.add('was-validated');
 }

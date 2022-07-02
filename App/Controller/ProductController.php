@@ -7,9 +7,12 @@ namespace App\Controller;
 use App\Attribute\Route;
 use App\Container;
 use App\Model\Furniture;
+use App\Model\Product;
 use App\Repository\Product\FurnitureRepository;
 use App\Repository\Product\ProductRepository;
 use App\Util\ProductUtil;
+use App\Validator\Product\ProductValidator;
+use App\Validator\ValidationError;
 use App\View;
 use Twig\Environment;
 
@@ -49,15 +52,21 @@ class ProductController
     public function submit(): void
     {
         header('Content-Type: application/json; charset=utf-8');
-        //$test = $this->productRepository->get(2);
-        //$validator = ProductValidator::getValidator($_REQUEST['type']);
-//        if ($validator) {
-//            $product = $validator->validate($_REQUEST);
-//            if($product) {
-//                $this->productRepository->add($product);
-//            }
-//        }
-        echo json_encode($_REQUEST);
+        $validator = ProductValidator::getValidator($_REQUEST['type']);
+        if ($validator) {
+            $validationResult = $validator->validate($_REQUEST);
+            if($validationResult instanceof Product) {
+                //$this->productRepository->add($validationResult);
+                echo json_encode([
+                    'success' => 'Product successfully added.'
+                ]);
+                return;
+            }
+
+            echo $validationResult;
+            return;
+        }
+        echo new ValidationError('Validator for type ' . $_REQUEST['type'] . ' is missing.');
     }
     #[Route('/product/get/dynamicfields', method: 'POST')]
     public function getDynamicFields(): void
