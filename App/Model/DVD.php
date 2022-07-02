@@ -12,7 +12,7 @@ class DVD extends Product
     {
         if($params) {
             parent::__construct($params);
-            $this->size = $params['Size'] ?? 0.0;
+            $this->size = floatval($params['size']);
         }
     }
 
@@ -27,16 +27,16 @@ class DVD extends Product
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getSize(): int
+    public function getSize(): float
     {
         return $this->size;
     }
 
     public function __toString(): string
     {
-        return "Size: {$this->getSize()}";
+        return "Size: {$this->getSize()}mb";
     }
 
 }

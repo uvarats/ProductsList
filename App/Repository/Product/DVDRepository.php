@@ -20,7 +20,7 @@ class DVDRepository extends ProductRepository implements ProductAddInterface
     public function add(Product $product): null|array
     {
         if($product instanceof DVD) {
-            $dvdQuery = 'INSERT INTO dvd (ProductId, Size) VALUES (?, ?)';
+            $dvdQuery = 'INSERT INTO dvd (productId, size) VALUES (?, ?)';
             try {
                 parent::addProduct($product);
                 $this->mySQL->preparedQuery($dvdQuery, [

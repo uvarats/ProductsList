@@ -8,7 +8,7 @@ use App\Validator\ValidationError;
 
 class ProductValidator
 {
-    public static function getValidator(string $type): null|ProductValidatorInterface
+    public static function getConcreteValidator(string $type): null|ProductValidatorInterface
     {
         $validators = [
             'Book' => (fn() => new BookValidator()),

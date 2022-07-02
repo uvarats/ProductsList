@@ -14,9 +14,9 @@ class Furniture extends Product
     {
         if($params) {
             parent::__construct($params);
-            $this->height = $params['Height'] ?? 0.0;
-            $this->width = $params['Width'] ?? 0.0;
-            $this->length = $params['Length'] ?? 0.0;
+            $this->height = $params['height'] ?? 0.0;
+            $this->width = $params['width'] ?? 0.0;
+            $this->length = $params['length'] ?? 0.0;
         }
     }
 

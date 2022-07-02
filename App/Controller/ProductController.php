@@ -10,6 +10,7 @@ use App\Model\Furniture;
 use App\Model\Product;
 use App\Repository\Product\FurnitureRepository;
 use App\Repository\Product\ProductRepository;
+use App\Repository\Product\ProductRepositoryMap;
 use App\Util\ProductUtil;
 use App\Validator\Product\ProductValidator;
 use App\Validator\ValidationError;
@@ -28,18 +29,10 @@ class ProductController
     public function main(): void
     {
         $container = Container::getInstance();
-        $furniture = new Furniture();
-        $furniture->setSKU("FR0003")
-            ->setName("Vadim")
-            ->setPrice(2.28)
-            ->setHeight(3.4)
-            ->setLength(2.8)
-            ->setWidth(13.37);
-        /** @var FurnitureRepository $f */
-        $f = $container->get(FurnitureRepository::class);
-        $f->add($furniture);
+        /** @var ProductRepository $repository */
+        $repository = $container->get(ProductRepository::class);
         echo $this->twig->render('index.html.twig', [
-            'products' => $f->all(),
+            'products' => $repository->all(),
         ]);
     }
 
@@ -52,17 +45,24 @@ class ProductController
     public function submit(): void
     {
         header('Content-Type: application/json; charset=utf-8');
-        $validator = ProductValidator::getValidator($_REQUEST['type']);
+        if(!isset($_REQUEST['type'])) {
+            throw new \InvalidArgumentException();
+        }
+        $validator = ProductValidator::getConcreteValidator($_REQUEST['type']);
         if ($validator) {
             $validationResult = $validator->validate($_REQUEST);
             if($validationResult instanceof Product) {
-                //$this->productRepository->add($validationResult);
+                $repository = ProductRepositoryMap::getRepository($_REQUEST['type']);
+                $result = $repository->add($validationResult);
+                if($result && $result['errorCode'] === 1062) {
+                    echo new ValidationError('SKU is not unique.');
+                    return;
+                }
                 echo json_encode([
                     'success' => 'Product successfully added.'
                 ]);
                 return;
             }
-
             echo $validationResult;
             return;
         }

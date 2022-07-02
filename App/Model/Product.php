@@ -14,10 +14,11 @@ abstract class Product
     public function __construct(array $params = null)
     {
         if($params) {
-            $this->id = $params['Id'];
-            $this->SKU = $params['SKU'] ?? "Undefined";
-            $this->name =  $params['Name'] ?? 'Undefined';
-            $this->price = $params['Price'] ?? 0.0;
+            //var_dump($params);
+            $this->id = $params['id'] ?? null;
+            $this->SKU = $params['sku'] ?? "Undefined";
+            $this->name =  $params['name'] ?? 'Undefined';
+            $this->price = floatval($params['price']);
         }
     }
 

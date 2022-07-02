@@ -25,7 +25,6 @@ class DVDValidator extends ProductValidator implements ProductValidatorInterface
             if(!is_numeric($base['size'])) {
                 return new ValidationError('Size must be a numeric.');
             }
-
             return new DVD($base);
         }
         return $base;

@@ -2,6 +2,10 @@
     window.onload = () => {
         const button = document.getElementById("delete-product-btn");
         button.addEventListener("click", massDelete);
+        const addButton = document.querySelectorAll('.btn.btn-outline-success.me-3')[0];
+        addButton.addEventListener('click', function (event) {
+            location.replace('/add-product');
+        })
     }
 })(window, document, undefined);
 
