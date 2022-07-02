@@ -6,7 +6,7 @@ namespace App\Model;
 
 class DVD extends Product
 {
-    private int $size;
+    private float $size;
 
     public function __construct(array $params = null)
     {

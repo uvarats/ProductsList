@@ -6,5 +6,5 @@ namespace App\Validator;
 
 interface ValidatorInterface
 {
-    public function validate(array $data): null|object;
+    public function validate(array $data): object;
 }

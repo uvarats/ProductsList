@@ -56,10 +56,10 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function all(callable $condition = null): array
     {
-        $query = 'SELECT * FROM products 
-                LEFT OUTER JOIN book B on Products.Id = B.ProductId 
-                LEFT OUTER JOIN dvd D on Products.Id = D.ProductId 
-                LEFT OUTER JOIN furniture F on Products.Id = F.ProductId';
+        $query = 'SELECT * FROM products P
+                LEFT OUTER JOIN book B on P.Id = B.ProductId 
+                LEFT OUTER JOIN dvd D on P.Id = D.ProductId 
+                LEFT OUTER JOIN furniture F on P.Id = F.ProductId';
         $result = $this->mySQL->query($query);
         $array = $result->fetch_all(MYSQLI_ASSOC);
         return array_map(function ($entry) {
