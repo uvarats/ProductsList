@@ -53,11 +53,7 @@ class ProductController
             $validationResult = $validator->validate($_REQUEST);
             if($validationResult instanceof Product) {
                 $repository = ProductRepositoryMap::getRepository($_REQUEST['type']);
-                $result = $repository->add($validationResult);
-                if($result && $result['errorCode'] === 1062) {
-                    echo new ValidationError('SKU is not unique.');
-                    return;
-                }
+                $repository->add($validationResult);
                 echo json_encode([
                     'success' => 'Product successfully added.'
                 ]);

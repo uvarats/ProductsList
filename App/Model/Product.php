@@ -14,7 +14,6 @@ abstract class Product
     public function __construct(array $params = null)
     {
         if($params) {
-            //var_dump($params);
             $this->id = $params['id'] ?? null;
             $this->SKU = $params['sku'] ?? "Undefined";
             $this->name =  $params['name'] ?? 'Undefined';

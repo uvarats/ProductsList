@@ -20,6 +20,7 @@ let htmls;
 async function onsubmit(event) {
     event.preventDefault();
     //event.stopPropagation();
+
     if (event.target.checkValidity()) {
         let response = await fetch('/product/submit', {
             method: 'POST',
@@ -27,7 +28,7 @@ async function onsubmit(event) {
         });
         let responseJson = await response.json();
         console.log(responseJson);
-        let data = new FormData(event.target);
+
     }
     event.target.classList.add('was-validated');
 }

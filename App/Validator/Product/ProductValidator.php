@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Validator\Product;
 
+use App\Container;
+use App\Repository\Product\ProductRepository;
 use App\Validator\ValidationError;
 
 class ProductValidator
@@ -22,6 +24,9 @@ class ProductValidator
     }
     protected function validateBase(array $data): ValidationError|array
     {
+        $container = Container::getInstance();
+        /** @var ProductRepository $repository */
+        $repository = $container->get(ProductRepository::class);
         $keys = ['SKU', 'Name', 'Price'];
         foreach($keys as $key) {
             $lowerKey = strtolower($key);
@@ -36,7 +41,10 @@ class ProductValidator
             return new ValidationError('Name should not be longer than 45 characters.');
         }
         if(!is_numeric($data['price'])) {
-            return new ValidationError('Price should be a numeric.');
+            return new ValidationError('Price must be a numeric.');
+        }
+        if(!$repository->isSKUUnique($data['sku'])) {
+            return new ValidationError('SKU must be unique.');
         }
         return $data;
     }
