@@ -69,17 +69,19 @@ class ProductController
     public function delete(): void
     {
         header('Content-Type: application/json; charset=utf-8');
-        $payload = file_get_contents('php://input');
-        $data = json_decode($payload);
-        error_log(json_encode($data));
-        $container = Container::getInstance();
-        /** @var ProductRepository $repository */
-        $repository = $container->get(ProductRepository::class);
-        $result = $repository->remove($data);
-        error_log(json_encode($result));
-        echo json_encode([
-            'result' => is_bool($result),
-        ]);
+        try {
+            $payload = file_get_contents('php://input');
+            $data = json_decode($payload);
+            $container = Container::getInstance();
+            /** @var ProductRepository $repository */
+            $repository = $container->get(ProductRepository::class);
+            $result = $repository->remove($data);
+            echo json_encode([
+                'result' => is_bool($result),
+            ]);
+        } catch(\Exception $e) {
+            error_log($e->getMessage());
+        }
     }
 
     #[Route('/product/get/dynamicfields', method: 'POST')]
