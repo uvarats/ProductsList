@@ -9,14 +9,25 @@
     }
 })(window, document, undefined);
 
-function massDelete(){
+async function massDelete() {
     const checked = Array.from(document.querySelectorAll(".delete-checkbox:checked"));
     const divs = checked.map(function (current) {
         return current.closest(".col.mt-3");
     });
-    const ids = checked.map(function (current){
+    const ids = checked.map(function (current) {
         return current.value;
     });
+    let stringIds = JSON.stringify(ids);
+    console.log(stringIds);
+    let response = await fetch('/product/delete', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: stringIds,
+    });
+    let json = await response.json();
+    console.log(json);
     divs.forEach(function (current) {
         current.remove();
     })

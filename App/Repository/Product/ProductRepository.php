@@ -12,6 +12,7 @@ use App\Repository\Product\Contracts\ProductRemoveInterface;
 use App\Repository\Product\Contracts\ProductRepositoryInterface;
 use App\Util\ClassUtil;
 use App\Util\ProductUtil;
+use mysqli_result;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -41,17 +42,11 @@ class ProductRepository implements ProductRepositoryInterface
         return null;
     }
 
-    public function remove(int|array $id): void
+    public function remove(array $id): bool|mysqli_result
     {
-        $query = 'DELETE FROM products p WHERE p.id = ?';
-        $params = [$id];
-        if (is_array($id)) {
-            $ids = implode("','", $id);
-            $query = "DELETE FROM products p WHERE p.id IN ('" . $ids. "')";
-            $params = [];
-        }
-        $result = $this->mySQL->preparedQuery($query, $params);
-        var_dump($result->fetch_assoc());
+        $ids = implode("','", $id);
+        $query = "DELETE FROM products p WHERE p.id IN ('" . $ids. "')";
+        return $this->mySQL->query($query);
     }
 
     public function all(callable $condition = null): array

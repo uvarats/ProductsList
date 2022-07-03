@@ -64,6 +64,22 @@ class ProductController
         }
         echo new ValidationError('Validator for type ' . $_REQUEST['type'] . ' is missing.');
     }
+
+    #[Route('/product/delete', method: 'POST')]
+    public function delete(): void
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        $payload = file_get_contents('php://input');
+        $data = json_decode($payload);
+        $container = Container::getInstance();
+        /** @var ProductRepository $repository */
+        $repository = $container->get(ProductRepository::class);
+        $result = $repository->remove($data);
+        echo json_encode([
+            'result' => is_bool($result),
+        ]);
+    }
+
     #[Route('/product/get/dynamicfields', method: 'POST')]
     public function getDynamicFields(): void
     {

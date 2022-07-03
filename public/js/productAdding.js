@@ -20,7 +20,6 @@ let htmls;
 async function onsubmit(event) {
     event.preventDefault();
     //event.stopPropagation();
-
     if (event.target.checkValidity()) {
         let response = await fetch('/product/submit', {
             method: 'POST',
@@ -28,7 +27,12 @@ async function onsubmit(event) {
         });
         let responseJson = await response.json();
         console.log(responseJson);
-
+        if(responseJson['error']) {
+            alert(responseJson['error'], 'danger');
+        }
+        if(responseJson['success']) {
+            location.replace('/');
+        }
     }
     event.target.classList.add('was-validated');
 }
@@ -36,4 +40,18 @@ function typeSwitch(event) {
     let newType = event.target.value;
     let div = document.getElementById('dynamicFields');
     div.innerHTML = htmls[newType];
+}
+
+function alert(message, type) {
+    let placeholder = document.getElementById('alertPlaceholder');
+    let wrapper = document.createElement('div');
+
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('');
+
+    placeholder.append(wrapper);
 }

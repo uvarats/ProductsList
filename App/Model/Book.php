@@ -12,7 +12,7 @@ class Book extends Product
     {
         if($params) {
             parent::__construct($params);
-            $this->weight = $params['weight'] ?? 0.0;
+            $this->weight = floatval($params['weight']);
         }
     }
 
