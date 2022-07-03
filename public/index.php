@@ -36,5 +36,5 @@ try {
 } catch (RouteNotFoundException $e) {
     include VIEWS_PATH . '/404.php';
 } catch (Exception $e) {
-    echo $e->getMessage();
+    error_log($e->getMessage());
 }

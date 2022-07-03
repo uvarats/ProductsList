@@ -45,7 +45,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function remove(array $id): bool|mysqli_result
     {
         $ids = implode("','", $id);
-        $query = "DELETE FROM products p WHERE p.id IN ('" . $ids. "')";
+        $query = "DELETE FROM products WHERE id IN ('" . $ids. "')";
         return $this->mySQL->query($query);
     }
 
