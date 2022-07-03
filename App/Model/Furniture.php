@@ -12,7 +12,7 @@ class Furniture extends Product
 
     public function __construct(array $params = null)
     {
-        if($params) {
+        if ($params) {
             parent::__construct($params);
             $this->height = floatval($params['height']);
             $this->width = floatval($params['width']);
@@ -82,5 +82,4 @@ class Furniture extends Product
     {
         return $this->getDimensions();
     }
-
 }

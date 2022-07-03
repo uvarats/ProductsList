@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Util;
 
-use App\Model\{Book, DVD, Furniture, Product};
+use App\Model\Book;
+use App\Model\DVD;
+use App\Model\Furniture;
+use App\Model\Product;
 
 class ProductUtil
 {
@@ -19,9 +22,9 @@ class ProductUtil
             '2' => 'Furniture'
         ];
         $this->productTypes = [
-            '0' => fn(array $params = null) => new Book($params),
-            '1' => fn(array $params = null) => new DVD($params),
-            '2' => fn(array $params = null) => new Furniture($params)
+            '0' => fn (array $params = null) => new Book($params),
+            '1' => fn (array $params = null) => new DVD($params),
+            '2' => fn (array $params = null) => new Furniture($params)
         ];
     }
 

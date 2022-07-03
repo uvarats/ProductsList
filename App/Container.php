@@ -20,7 +20,7 @@ class Container implements ContainerInterface
 
     public static function getInstance(): self
     {
-        if(is_null(self::$_instance)) {
+        if (is_null(self::$_instance)) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -70,33 +70,33 @@ class Container implements ContainerInterface
             return new $id();
         }
         $dependencies = array_map(
-        function (\ReflectionParameter $parameter) use ($id) {
-                $name = $parameter->getName();
-                $type = $parameter->getType();
+            function (\ReflectionParameter $parameter) use ($id) {
+            $name = $parameter->getName();
+            $type = $parameter->getType();
 
-                if (!$type) {
-                    throw new ContainerException(
-                        "Can't to resolve " . $id . ": param " . $name . " hasn't type hint."
-                    );
-                }
-                if($type instanceof \ReflectionUnionType) {
-                    throw new ContainerException(
-                        "Can't to resolve " . $id . ": param " . $name . " is union."
-                    );
-                }
-                if($type instanceof  \ReflectionNamedType && !$type->isBuiltin()) {
-                    return $this->get($type->getName());
-                }
-
+            if (!$type) {
                 throw new ContainerException(
-                    "Can't to resolve " . $id . ": param " . $name . " is invalid."
+                    "Can't to resolve " . $id . ": param " . $name . " hasn't type hint."
                 );
-            },
+            }
+            if ($type instanceof \ReflectionUnionType) {
+                throw new ContainerException(
+                    "Can't to resolve " . $id . ": param " . $name . " is union."
+                );
+            }
+            if ($type instanceof  \ReflectionNamedType && !$type->isBuiltin()) {
+                return $this->get($type->getName());
+            }
+
+            throw new ContainerException(
+                "Can't to resolve " . $id . ": param " . $name . " is invalid."
+            );
+        },
             $params
         );
         return $reflectionClass->newInstanceArgs($dependencies);
     }
-    protected function __clone() {
-
+    protected function __clone()
+    {
     }
 }

@@ -35,10 +35,10 @@ class MySQL
     private function getParamTypes(array $params): string
     {
         $types = "";
-        if($params) {
-            foreach($params as $param) {
+        if ($params) {
+            foreach ($params as $param) {
                 $typeSymbol = gettype($param)[0];
-                if(in_array($typeSymbol, ['i', 'd', 's'])) {
+                if (in_array($typeSymbol, ['i', 'd', 's'])) {
                     $types .= $typeSymbol;
                     continue;
                 }

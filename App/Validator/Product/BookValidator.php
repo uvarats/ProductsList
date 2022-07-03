@@ -9,20 +9,19 @@ use App\Validator\ValidationError;
 
 class BookValidator extends ProductValidator implements ProductValidatorInterface
 {
-
     public function validate(array $data): ValidationError|Book
     {
         $base = parent::validateBase($data);
-        if(is_array($base)) {
+        if (is_array($base)) {
             $keys = ['Weight'];
-            foreach($keys as $key) {
+            foreach ($keys as $key) {
                 $lowerKey = strtolower($key);
-                if(!isset($base[$lowerKey])) {
+                if (!isset($base[$lowerKey])) {
                     return new ValidationError($key . ' value is missing or it has invalid type (e.g file).
                     Please, do not change form in developer console...');
                 }
             }
-            if(!is_numeric($base['weight'])) {
+            if (!is_numeric($base['weight'])) {
                 return new ValidationError('Weight must be a numeric.');
             }
 

@@ -10,7 +10,7 @@ class Book extends Product
 
     public function __construct(array $params = null)
     {
-        if($params) {
+        if ($params) {
             parent::__construct($params);
             $this->weight = floatval($params['weight']);
         }
@@ -38,6 +38,4 @@ class Book extends Product
     {
         return "Weight: {$this->getWeight()}kg";
     }
-
-
 }

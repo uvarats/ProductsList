@@ -26,12 +26,12 @@ class Router
 
     public function parseRoutes(array $controllers): void
     {
-        foreach($controllers as $controller) {
+        foreach ($controllers as $controller) {
             $reflection = new \ReflectionClass($controller);
             $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
-            foreach($methods as $method) {
+            foreach ($methods as $method) {
                 $attributes = $method->getAttributes(Route::class);
-                foreach($attributes as $attribute) {
+                foreach ($attributes as $attribute) {
                     /** @var Route $route */
                     $route = $attribute->newInstance();
                     $this->registerRoute(
@@ -62,18 +62,19 @@ class Router
      * @throws NotFoundExceptionInterface
      * @throws RouteNotFoundException
      */
-    public function process(string $requestPath, string $requestMethod) {
+    public function process(string $requestPath, string $requestMethod)
+    {
         $action = $this->routes[$requestMethod][$requestPath] ?? null;
-        if(!$action) {
+        if (!$action) {
             throw new RouteNotFoundException($requestPath);
         }
-        if(is_callable($action)) {
+        if (is_callable($action)) {
             call_user_func($action);
         }
         [$class, $method] = $action;
-        if(class_exists($class)) {
+        if (class_exists($class)) {
             $class = $this->container->get($class);
-            if(method_exists($class, $method)) {
+            if (method_exists($class, $method)) {
                 return call_user_func_array([$class, $method], []);
             }
         }

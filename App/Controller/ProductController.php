@@ -7,7 +7,8 @@ namespace App\Controller;
 use App\Attribute\Route;
 use App\Container;
 use App\Model\Product;
-use App\Repository\Product\{ProductRepository, ProductRepositoryMap};
+use App\Repository\Product\ProductRepository;
+use App\Repository\Product\ProductRepositoryMap;
 use App\Validator\Product\ProductValidator;
 use App\Validator\ValidationError;
 use App\View;
@@ -42,13 +43,13 @@ class ProductController
     public function submit(): void
     {
         header('Content-Type: application/json; charset=utf-8');
-        if(!isset($_REQUEST['type'])) {
+        if (!isset($_REQUEST['type'])) {
             throw new \InvalidArgumentException();
         }
         $validator = ProductValidator::getConcreteValidator($_REQUEST['type']);
         if ($validator) {
             $validationResult = $validator->validate($_REQUEST);
-            if($validationResult instanceof Product) {
+            if ($validationResult instanceof Product) {
                 $repository = ProductRepositoryMap::getRepository($_REQUEST['type']);
                 $repository->add($validationResult);
                 echo json_encode([

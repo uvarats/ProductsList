@@ -10,7 +10,7 @@ class DVD extends Product
 
     public function __construct(array $params = null)
     {
-        if($params) {
+        if ($params) {
             parent::__construct($params);
             $this->size = floatval($params['size']);
         }
@@ -38,5 +38,4 @@ class DVD extends Product
     {
         return "Size: {$this->getSize()}mb";
     }
-
 }

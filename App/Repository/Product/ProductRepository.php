@@ -16,8 +16,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function __construct(
         protected MySQL $mySQL,
         protected ProductUtil $productUtil
-    )
-    {
+    ) {
     }
 
     public function get(int $id): ?Product
@@ -25,7 +24,7 @@ class ProductRepository implements ProductRepositoryInterface
         $query = 'SELECT * FROM products p WHERE p.id = ?';
         $result = $this->mySQL->preparedQuery($query, [$id]);
         $result = $result->fetch_assoc();
-        if($result) {
+        if ($result) {
             $type = $result['type'];
             $typeName = $this->productUtil->getTypeName($type);
             $query = 'SELECT * FROM ' . strtolower($typeName) . ' t WHERE t.productId = ?';

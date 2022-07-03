@@ -32,5 +32,4 @@ class Route
     {
         return $this->method;
     }
-
 }

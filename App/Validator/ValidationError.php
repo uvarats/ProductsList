@@ -30,6 +30,4 @@ class ValidationError
             'error' => $this->text,
         ]);
     }
-
-
 }

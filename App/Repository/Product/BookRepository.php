@@ -12,7 +12,6 @@ use App\Util\ProductUtil;
 
 class BookRepository extends ProductRepository implements ProductAddInterface
 {
-
     public function __construct(MySQL $mySQL, ProductUtil $productUtil)
     {
         parent::__construct($mySQL, $productUtil);
@@ -20,7 +19,7 @@ class BookRepository extends ProductRepository implements ProductAddInterface
 
     public function add(Product $product): null|array
     {
-        if($product instanceof Book) {
+        if ($product instanceof Book) {
             $bookQuery = 'INSERT INTO book (productId, weight) VALUES (?, ?);';
             try {
                 parent::addProduct($product);

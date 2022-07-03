@@ -13,7 +13,6 @@ use App\Util\ProductUtil;
 
 class FurnitureRepository extends ProductRepository implements ProductAddInterface
 {
-
     public function __construct(MySQL $mySQL, ProductUtil $productUtil)
     {
         parent::__construct($mySQL, $productUtil);
@@ -25,7 +24,7 @@ class FurnitureRepository extends ProductRepository implements ProductAddInterfa
     public function get(int $id): ?Furniture
     {
         $result = parent::get($id);
-        if($result instanceof Furniture) {
+        if ($result instanceof Furniture) {
             return $result;
         }
         throw new ProductTypeMismatchException($result::class, $this::class);
@@ -33,7 +32,7 @@ class FurnitureRepository extends ProductRepository implements ProductAddInterfa
 
     public function add(Product $product): null|array
     {
-        if($product instanceof Furniture) {
+        if ($product instanceof Furniture) {
             $furnitureQuery = 'INSERT INTO furniture (productId, height, width, length) VALUES (?, ?, ?, ?)';
             try {
                 parent::addProduct($product);
