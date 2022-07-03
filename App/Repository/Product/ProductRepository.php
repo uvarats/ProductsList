@@ -6,9 +6,6 @@ namespace App\Repository\Product;
 
 use App\Model\Product;
 use App\Persistence\MySQL;
-use App\Repository\Product\Contracts\ProductAllInterface;
-use App\Repository\Product\Contracts\ProductGetInterface;
-use App\Repository\Product\Contracts\ProductRemoveInterface;
 use App\Repository\Product\Contracts\ProductRepositoryInterface;
 use App\Util\ClassUtil;
 use App\Util\ProductUtil;
@@ -73,7 +70,8 @@ class ProductRepository implements ProductRepositoryInterface
             $this->productUtil->getTypeId($classname)
         ]);
     }
-    public function isSKUUnique(string $sku) {
+    public function isSKUUnique(string $sku): bool
+    {
         $query = 'SELECT * FROM products p WHERE p.sku = ?';
         $result = $this->mySQL->preparedQuery($query, [$sku]);
         return !$result->num_rows;

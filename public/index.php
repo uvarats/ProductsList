@@ -5,10 +5,6 @@ use App\Controller\ProductController;
 use App\Exception\RouteNotFoundException;
 use App\Router;
 use Dotenv\Dotenv;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

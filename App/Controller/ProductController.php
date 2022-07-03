@@ -6,12 +6,8 @@ namespace App\Controller;
 
 use App\Attribute\Route;
 use App\Container;
-use App\Model\Furniture;
 use App\Model\Product;
-use App\Repository\Product\FurnitureRepository;
-use App\Repository\Product\ProductRepository;
-use App\Repository\Product\ProductRepositoryMap;
-use App\Util\ProductUtil;
+use App\Repository\Product\{ProductRepository, ProductRepositoryMap};
 use App\Validator\Product\ProductValidator;
 use App\Validator\ValidationError;
 use App\View;
@@ -20,17 +16,18 @@ use Twig\Environment;
 class ProductController
 {
     private Environment $twig;
+    private Container $container;
     public function __construct()
     {
         $this->twig = View::getTwig();
+        $this->container = Container::getInstance();
     }
 
     #[Route('/')]
     public function main(): void
     {
-        $container = Container::getInstance();
         /** @var ProductRepository $repository */
-        $repository = $container->get(ProductRepository::class);
+        $repository = $this->container->get(ProductRepository::class);
         echo $this->twig->render('index.html.twig', [
             'products' => $repository->all(),
         ]);
@@ -71,9 +68,8 @@ class ProductController
         header('Content-Type: application/json; charset=utf-8');
         $payload = file_get_contents('php://input');
         $data = json_decode($payload);
-        $container = Container::getInstance();
         /** @var ProductRepository $repository */
-        $repository = $container->get(ProductRepository::class);
+        $repository = $this->container->get(ProductRepository::class);
         $result = $repository->remove($data);
         echo json_encode([
             'result' => is_bool($result),

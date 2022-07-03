@@ -18,16 +18,13 @@ async function massDelete() {
         return current.value;
     });
     let stringIds = JSON.stringify(ids);
-    console.log(stringIds);
-    let response = await fetch('/product/delete', {
+    await fetch('/product/delete', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
         },
         body: stringIds,
     });
-    let json = await response.json();
-    console.log(json);
     divs.forEach(function (current) {
         current.remove();
     })
