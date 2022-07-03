@@ -76,6 +76,7 @@ class ProductController
         /** @var ProductRepository $repository */
         $repository = $container->get(ProductRepository::class);
         $result = $repository->remove($data);
+        error_log(json_encode($result));
         echo json_encode([
             'result' => is_bool($result),
         ]);
