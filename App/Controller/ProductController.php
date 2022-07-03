@@ -71,7 +71,7 @@ class ProductController
         header('Content-Type: application/json; charset=utf-8');
         $payload = file_get_contents('php://input');
         $data = json_decode($payload);
-        error_log($data);
+        error_log(json_encode($data));
         $container = Container::getInstance();
         /** @var ProductRepository $repository */
         $repository = $container->get(ProductRepository::class);
